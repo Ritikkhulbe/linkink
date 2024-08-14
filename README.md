@@ -1,4 +1,4 @@
-### Product Info Diagrams
+# Product Info Diagrams
 
 ## Data Modeling
 
