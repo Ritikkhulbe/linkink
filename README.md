@@ -1,6 +1,17 @@
-## Product Info Diagrams
+Product Info Diagrams
 
-![UML Diagrams](https://github.com/user-attachments/assets/7a8a73f9-c707-4dc7-b959-e4d928e859b7)
+## Data Modeling
+
+![dataModels](https://github.com/user-attachments/assets/00f24278-1b06-44e4-9126-3ff6b7d40b43)
+
+## Routes
+
+![All Backend Routes](https://github.com/user-attachments/assets/fde9084b-f29e-48a3-9221-817fcf690254)
+
+## Frontend Pages
+
+![Frontend Pages](https://github.com/user-attachments/assets/90dac583-db14-423a-bb70-7b3795b2250b)
+
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -11,31 +22,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
