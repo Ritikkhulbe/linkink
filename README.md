@@ -1,3 +1,8 @@
+## Product Info Diagrams
+
+![UML Diagrams](https://github.com/user-attachments/assets/7a8a73f9-c707-4dc7-b959-e4d928e859b7)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
