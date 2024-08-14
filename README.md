@@ -2,7 +2,7 @@ Product Info Diagrams
 
 ## Data Modeling
 
-![dataModels](https://github.com/user-attachments/assets/00f24278-1b06-44e4-9126-3ff6b7d40b43)
+![Frontend Pages](https://github.com/user-attachments/assets/90dac583-db14-423a-bb70-7b3795b2250b)
 
 ## Routes
 
@@ -10,7 +10,7 @@ Product Info Diagrams
 
 ## Frontend Pages
 
-![Frontend Pages](https://github.com/user-attachments/assets/90dac583-db14-423a-bb70-7b3795b2250b)
+![dataModels](https://github.com/user-attachments/assets/00f24278-1b06-44e4-9126-3ff6b7d40b43)
 
 
 
