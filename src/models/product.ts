@@ -1,6 +1,7 @@
 import {Schema, model, models} from "mongoose"
 
 export interface product{
+    productNumber: Number,
     name: string,
     sizes: string[],
     images: string[],
@@ -9,6 +10,11 @@ export interface product{
 }
 
 const ProductSchema = new Schema<product>({
+    productNumber: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
     name: {
         type: String,
         required: [true, "Please provide a name"],

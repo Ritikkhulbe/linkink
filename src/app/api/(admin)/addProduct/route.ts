@@ -1,6 +1,6 @@
 import { connectDB } from "@/dbConfig/database";
 import Product from "@/models/product";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 connectDB()
 
@@ -10,10 +10,11 @@ export async function POST(request: Request) {
         console.log(body);
 
         const newProduct = new Product({
+            productNumber: body.productNumber,
             name: body.name,
             size: body.size,
             images: body.images,
-            variant: body.variant,
+            colours: body.colours,
             productLink: body.productLink? body.productLink : ""
         });
 

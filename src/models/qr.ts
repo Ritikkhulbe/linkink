@@ -9,13 +9,14 @@ export interface qr {
     link: string,
     product: product,
     impressions: Number,
-    impressionsToday: Number,
+    impressionsPerDay: [Number],
 }
 
 const QrSchema = new Schema<qr>({
     qrlink: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
     isOwned: {
         type: Boolean,
@@ -41,13 +42,13 @@ const QrSchema = new Schema<qr>({
         required: true,
         default: 0
     },
-    impressionsToday: {
-        type: Number,
+    impressionsPerDay: {
+        type: [Number],
         required: true,
-        default: 0,
+        default: [0],
     }
 }, { timestamps: true })
 
-const qrModel = models.qrs || model<qr>('qrs', QrSchema);
+const QR = models.qrs || model<qr>('qrs', QrSchema);
 
-export default qrModel;
+export default QR;
