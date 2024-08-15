@@ -20,7 +20,6 @@ const UserSchema = new Schema<user>({
     },
     image: {
         type: String,
-        required: false,
     },
     productList: {
         type: [{type: Schema.Types.ObjectId, ref: "qrs"}],
