@@ -2,13 +2,21 @@ import { connectDB } from '@/dbConfig/database';
 import User from '@/models/user';
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import { Profile } from 'next-auth';
+import { Profile, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 interface ExtendedProfile extends Profile {
   given_name?: string;
   picture?: string;
-}
+};
 
+
+interface ExtendedSession extends Session {
+  user: {
+    id: string;
+    email: string;
+  } & Session['user'];
+}
 
 const GoogleAuthHandler = NextAuth({
     providers: [
@@ -38,7 +46,7 @@ const GoogleAuthHandler = NextAuth({
               image: profile.picture,
             })
             
-            await newUser.save()
+            await newUser.save();
           }
         }
           return true
@@ -47,9 +55,16 @@ const GoogleAuthHandler = NextAuth({
           return false
         }
       },
-      async session({ session}) {
+      async session({ session, token }: { session: Session, token: JWT }) {
 
-        return session
+        const sessionUser = await User.findOne({ email: session.user?.email});
+
+        if (sessionUser) {
+          (session.user as ExtendedSession['user']).id = sessionUser._id.toString();
+          (session.user as ExtendedSession['user']).email = sessionUser.email;
+        }
+  
+        return session as ExtendedSession;
       },
     }
 })

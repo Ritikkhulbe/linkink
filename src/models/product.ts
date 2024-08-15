@@ -2,32 +2,33 @@ import {Schema, model, models} from "mongoose"
 
 export interface product{
     name: string,
-    size: string,
+    sizes: string[],
     images: string[],
-    variant: string,
+    colours: string[],
     productLink: string,
 }
 
 const ProductSchema = new Schema<product>({
     name: {
         type: String,
-        required: true,
+        required: [true, "Please provide a name"],
     },
-    size: {
-        type: String,
+    sizes: {
+        type: [String],
         required: true,
+        default: [ "S", "M", "L", "XL", "XXL" ]
     },
     images: {
         type: [String],
-        required: true,
+        required: [true, "Please provide at least one image"],
     },
-    variant: {
-        type: String,
+    colours: {
+        type: [String],
         required: true,
+        default: [ "Black", "White" ]
     },
     productLink: {
         type: String,
-        required: true,
     }
 }, {timestamps: true});
 
