@@ -23,3 +23,7 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Postman Collection to test backend
+
+[Collection Postman](https://martian-rocket-122965.postman.co/workspace/New-Team-Workspace~cc2d52a9-7cac-41ce-b47d-49704a9ab204/collection/26541602-b6603a32-96c9-438f-b3b5-8b9535729ef7?action=share&creator=26541602)

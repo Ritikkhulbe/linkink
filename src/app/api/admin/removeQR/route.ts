@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/dbConfig/database";
-import Product from "@/models/product";
+import QR from "@/models/qr";
 
 connectDB()
 
@@ -9,16 +9,13 @@ export async function DELETE(request: Request) {
         const body = await request.json();
         console.log(body);
 
-        const ToDelete = await Product.findOne({ productNumber: body.productNumber });
+        const ToDelete = await QR.findOneAndDelete({ qrlink: body.qrlink });
 
         if(!ToDelete){
-            throw new Error("Product not found");
+            throw new Error("QR not found");
         }
 
-        await Product.deleteOne({ productNumber: body.productNumber });
-
         return NextResponse.json({ success: true });
-        
     }catch(err){
         console.log(err);
         return NextResponse.json({ success: false });

@@ -1,5 +1,5 @@
 import { connectDB } from "@/dbConfig/database";
-import QR from "@/models/qr";
+import Product from "@/models/product";
 import { NextResponse } from "next/server";
 
 connectDB()
@@ -9,16 +9,18 @@ export async function POST(request: Request) {
         const body = await request.json();
         console.log(body);
 
-        const newQR = new QR({
-            qrlink: body.qrlink,
-            link: body.link ? body.link : "https://linkink.in",
-            product: body.product,
+        const newProduct = new Product({
+            productNumber: body.productNumber,
+            name: body.name,
+            sizes: body.sizes,
+            images: body.images,
+            colours: body.colours,
+            productLink: body.productLink? body.productLink : ""
         });
 
-        await newQR.save();
+        await newProduct.save();
 
         return NextResponse.json({ success: true });
-        
     }catch(err){
         console.log(err);
         return NextResponse.json({ success: false });

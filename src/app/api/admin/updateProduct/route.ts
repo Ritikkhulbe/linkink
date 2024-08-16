@@ -9,13 +9,16 @@ export async function PUT(request: Request) {
         const body = await request.json();
         console.log(body);
 
+        const updateFields: any = {};
+
+        if (body.name) updateFields.name = body.name;
+        if (body.sizes) updateFields.sizes = body.sizes;
+        if (body.images) updateFields.images = body.images;
+        if (body.colours) updateFields.colours = body.colours;
+        if (body.productLink !== undefined) updateFields.productLink = body.productLink; 
+
         const ToUpdate = await Product.findOneAndUpdate({ productNumber: body.productNumber }, {
-            productNumber: body.productNumber,
-            name: body.name,
-            size: body.size,
-            images: body.images,
-            variant: body.variant,
-            productLink: body.productLink? body.productLink : ""
+            $set: updateFields
         });
 
         if(!ToUpdate){
