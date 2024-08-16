@@ -22,7 +22,7 @@ const UserSchema = new Schema<user>({
         type: String,
     },
     productList: {
-        type: [{type: Schema.Types.ObjectId, ref: "qrs"}],
+        type: [{type: Schema.Types.ObjectId, ref: "qrs", unique: true}],
         required: false,
     }
 }, {timestamps: true});
