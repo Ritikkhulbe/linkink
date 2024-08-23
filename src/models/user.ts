@@ -1,10 +1,16 @@
 import { Schema, models,  model } from "mongoose";
 import { qr } from "./qr";
 
+enum userRole {
+    USER = "user",
+    ADMIN = "admin",
+}
+
 export interface user{
     email: string,
     name: string,
     image: string,
+    role: userRole,
     productList: qr[],
 }
 
@@ -24,6 +30,11 @@ const UserSchema = new Schema<user>({
     productList: {
         type: [{type: Schema.Types.ObjectId, ref: "qrs", unique: true}],
         required: false,
+    },
+    role: {
+        type: String,
+        enum: [userRole.USER, userRole.ADMIN],
+        default: userRole.USER,
     }
 }, {timestamps: true});
 
