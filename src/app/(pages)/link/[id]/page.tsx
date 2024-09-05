@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const page = () => {
     const params = useParams();
-    const [array,setArray] = useState([{hello: "null"}]);
+    const [array,setArray] = useState([{hello: "null",hey:"hey"}]);
 
     const link = useLink(params.id);
 
@@ -22,15 +22,16 @@ const page = () => {
     }, []);
 
     useEffect(()=>{
-      
+      console.log(array)
     },[array])
 
 
   return (
-    {array.map((item:any) => (
-      <div key={item.hello}>{item.hello}</div>
-    ))
-    }
+    <>
+    {params.id}<br />
+    {array.map(temp => (<>
+      Hello {temp.hello}
+    </>))}</>
   )
 }
 
