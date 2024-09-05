@@ -1,4 +1,3 @@
-import { IntegerType } from "mongodb";
 import { Schema, models, model } from "mongoose";
 import { product } from "./product";
 

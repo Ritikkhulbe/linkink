@@ -4,7 +4,7 @@ import { withAuth } from "next-auth/middleware"
 export default withAuth({
     callbacks: {
         authorized: ({req, token}) => {
-            if(req.nextUrl.pathname === '/admin/:path*'){
+            if(req.nextUrl.pathname === '/admin/:path*' || req.nextUrl.pathname === '/qr/generate/:id*'){
                 return token?.role === 'admin'
             }
 
@@ -16,5 +16,5 @@ export default withAuth({
 })
 
 
-export const config = { matcher: ["/admin/:path*", "/user"] }
+export const config = { matcher: ["/admin/:path*", "/user", "/qr/generate/:id*"] }
 

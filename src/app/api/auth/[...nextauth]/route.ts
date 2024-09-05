@@ -1,5 +1,5 @@
-import { connectDB } from '@/dbConfig/database';
-import User from '@/models/user';
+import { connectDB } from '@/(backend)/dbConfig/database';
+import User from '@/(backend)/models/user';
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import { Profile, Session, SessionStrategy } from 'next-auth';
@@ -66,6 +66,7 @@ const authOptions = {
         (session.user as ExtendedSession['user']).id = sessionUser._id.toString();
         (session.user as ExtendedSession['user']).email = sessionUser.email;
         (session.user as ExtendedSession['user']).role = sessionUser.role;
+        (session.user as ExtendedSession['user']).name = sessionUser.name;
       }
 
       return session as ExtendedSession;

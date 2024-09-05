@@ -1,5 +1,5 @@
-import { connectDB } from "@/dbConfig/database";
-import Product from "@/models/product";
+import { connectDB } from "@/(backend)/dbConfig/database";
+import Product from "@/(backend)/models/product";
 import { NextResponse } from "next/server";
 
 connectDB()
