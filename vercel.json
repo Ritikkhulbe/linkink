@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/auth/session": {
+      "api/auth/**": {
         "maxDuration": 60
       }
     }
