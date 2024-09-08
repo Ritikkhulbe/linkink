@@ -30,63 +30,51 @@ const authOptions = {
     })
   ],
   callbacks: {
-    async signIn({ profile }: {profile?: ExtendedProfile }) {
-      console.log(profile);
-
-      try{
-        await connectDB()
+    async signIn({ profile }: { profile?: ExtendedProfile }) {
+      try {
+        await connectDB();
         
-        if(profile?.email){
-        const userExist = await User.findOne({email: profile.email})
+        if (profile?.email) {
+          const userExist = await User.findOne({ email: profile.email }).lean();
 
-        if(!userExist){
-          let username = profile.name;
-          if(profile.given_name !== ""){
-            username = profile.given_name;
+          if (!userExist) {
+            const username = profile.given_name || profile.name || profile.email.split('@')[0];
+            const newUser = new User({
+              email: profile.email,
+              name: username,
+              image: profile.picture,
+              role: "user",
+            });
+
+            await newUser.save();
           }
-          const newUser = new User({
-            email: profile.email,
-            name: username,
-            image: profile.picture,
-            role: "user",
-          })
-          
-          await newUser.save();
         }
-      }
-        return true
-      }catch(err){
-        console.log(err);
-        return false
+        return true;
+      } catch (err) {
+        console.error('Error in signIn callback:', err);
+        return false;
       }
     },
-    async session({ session,token }: { session: Session, token: JWT }) {
-
-      const sessionUser = await User.findOne({ email: session.user?.email});
-
-      if (sessionUser) {
-        (session.user as ExtendedSession['user']).id = sessionUser._id.toString();
-        (session.user as ExtendedSession['user']).email = sessionUser.email;
-        (session.user as ExtendedSession['user']).role = sessionUser.role;
-        (session.user as ExtendedSession['user']).name = sessionUser.name;
+    async jwt({ token, user, profile }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
+      // Add name and image to the JWT when user signs in
+      if (user && profile) {
+        token.name = profile.name;
+        token.picture = profile.picture;
       }
-
-      return session as ExtendedSession;
-    },
-    async jwt({ token, user }: { token: JWT, user?: any }) {
-      if (user) {
-        const userRecord = await User.findOne({ email: user.email });
-        if (userRecord) {
-          token.role = userRecord.role;
-        }
-      }
-
       return token;
+    },
+    async session({ session, token }: { session: Session, token: JWT }) {
+      // Ensure session.user exists before accessing its properties
+      if (session.user) {
+        session.user.name = token.name as string;
+        session.user.image = token.picture as string;
+      }
+      return session;
     }
-    },
-    session: {
-      strategy: "jwt" as SessionStrategy,
-    },
+  },
+  session: {
+    strategy: "jwt" as SessionStrategy,
+  },
 }
 
 const GoogleAuthHandler = NextAuth(authOptions);
