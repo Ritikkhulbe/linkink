@@ -15,7 +15,7 @@ To read more about using these font, please visit the Next.js documentation:
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export function Navbar() {
 
@@ -30,7 +30,7 @@ export function Navbar() {
       </Link>
       <div className="flex items-center gap-2 md:hidden">
         {session?.user ? (
-          <><Button variant="outline">{session?.user?.name}</Button></>
+          <><Button variant="outline" onClick={()=>signOut()}>{session?.user?.name}</Button></>
         ): (
         <Button onClick={()=>signIn('google')}>Log In</Button>
         )}
@@ -95,7 +95,7 @@ export function Navbar() {
       <div className="hidden gap-2 md:flex">
         <Button variant="outline" onClick={()=>console.log("Hi there")}>Shop Now</Button>
         {session?.user ? (
-          <><Button variant="outline">{session?.user?.name}</Button></>
+          <><Button variant="outline" onClick={()=>signOut()}>{session?.user?.name}</Button></>
         ): (
         <Button onClick={()=>signIn('google')}>Log In</Button>
         )}
