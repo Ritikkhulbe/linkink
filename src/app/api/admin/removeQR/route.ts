@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/dbConfig/database";
-import QR from "@/(backend)/dbConfig/models/qr";
+import QR from "@/models/qr";
 
 connectDB()
 
