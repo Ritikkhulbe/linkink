@@ -90,4 +90,4 @@ const authOptions = {
 const GoogleAuthHandler = NextAuth(authOptions);
 
 
-export { GoogleAuthHandler as GET, GoogleAuthHandler as POST, authOptions}
+export { GoogleAuthHandler as GET, GoogleAuthHandler as POST}
