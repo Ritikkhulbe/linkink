@@ -1,3 +1,5 @@
+export const maxDuration = 60;
+
 import { connectDB } from '@/dbConfig/database';
 import User from '@/models/user';
 import NextAuth from "next-auth/next";
