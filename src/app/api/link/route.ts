@@ -33,9 +33,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ success: true, link: qrProduct.link });
         }
 
-        return NextResponse.json({ success: false, qrlink: "/dashboard" });
+        return NextResponse.json({ success: false, link: "linkink.in/dashboard" });
 
     }catch(err){
         console.error(err);
+        return NextResponse.json({ success: false, message: "Something went wrong", err });
     }
 }

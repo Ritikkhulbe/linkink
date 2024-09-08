@@ -1,37 +1,46 @@
 "use client";
 
 import useLink from "@/hooks/useLink";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
 
 const page = () => {
     const params = useParams();
-    const [array,setArray] = useState([{hello: "null",hey:"hey"}]);
+    const [link, setLink] = useState("")
 
-    const link = useLink(params.id);
 
     useEffect(() => { 
-      
-      fetch("/api/helloworld")
-        .then((res) => res.json())
-        .then((data) => setArray(data))
-        .catch((err) => console.error(err));
-
+      const fetchLink = async () => {
+        const data = await getLink();
+        setLink(data.link);
+      };
+    
+      const getLink = async () => {
+        const res = await axios.post('/api/link', { qrlink: params.id });
+        const resData = res.data;
+        return resData;
+      };
+    
+      fetchLink();
 
     }, []);
 
-    useEffect(()=>{
-      console.log(array)
-    },[array])
+
+    useEffect(() => {
+      if(link!==""){
+        const formattedLink = link.startsWith('http') ? link : `http://${link}`;
+        window.location.assign(formattedLink);
+      }
+    }, [link])
+    
 
 
   return (
     <>
     {params.id}<br />
-    {array.map(temp => (<>
-      Hello {temp.hello}
-    </>))}</>
+    </>
   )
 }
 
