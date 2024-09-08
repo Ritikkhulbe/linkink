@@ -1,33 +1,41 @@
 import { connectDB } from "@/(backend)/dbConfig/database";
 import QR from "@/(backend)/models/qr";
 import { NextResponse } from "next/server";
-import { isSet } from "util/types";
+import RedisClient from "@/(backend)/dbConfig/redisConfig";
 
-connectDB();
 
 export async function POST(request: Request) {
     try{
-    const body = await request.json();
-
+        const body = await request.json();
+        
+        const qrlinkKey = `qrlink:${body.qrlink}`;
+        
+        const cachedLink = await RedisClient.get(qrlinkKey);
+        
+        if(cachedLink){
+            return NextResponse.json({success: true, link: cachedLink});
+        }
+        
+        await connectDB();
     
-    
-    const qrProduct = await QR.findOne({ qrlink: body.qrlink });
+        const qrProduct = await QR.findOne({ qrlink: body.qrlink });
 
-    if(!qrProduct){
-        throw new Error("QR not found");
+        if(!qrProduct){
+            throw new Error("QR not found");
+        }
+
+        if(!qrProduct.isOwned){
+            return NextResponse.json({ success: false, qrlink: body.qrlink ,link: "/auth/signin?callback=/user/addProduct" });
+        }
+
+        if(qrProduct.isSet){
+            await RedisClient.set(qrlinkKey, qrProduct.link, "EX", 60 * 60 * 24 * 30);
+            return NextResponse.json({ success: true, link: qrProduct.link });
+        }
+
+        return NextResponse.json({ success: false, qrlink: "/dashboard" });
+
+    }catch(err){
+        console.error(err);
     }
-
-    if(!qrProduct.isOwned){
-        return NextResponse.json({ success: false, qrlink: body.qrlink ,link: "/auth/signin?callback=/user/addProduct" });
-    }
-
-    if(qrProduct.isSet){
-        return NextResponse.json({ success: true, link: qrProduct.link });
-    }
-
-    return NextResponse.json({ success: false, qrlink: "/dashboard" });
-
-}catch(err){
-    console.error(err);
-}
 }
