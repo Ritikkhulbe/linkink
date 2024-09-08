@@ -1,5 +1,5 @@
-import { connectDB } from "@/(backend)/dbConfig/database";
-import User from "@/(backend)/models/user";
+import { connectDB } from "@/dbConfig/database";
+import User from "@/models/user";
 import { NextResponse } from "next/server";
 
 connectDB();

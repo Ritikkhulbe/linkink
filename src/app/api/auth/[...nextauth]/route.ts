@@ -1,5 +1,5 @@
-import { connectDB } from '@/(backend)/dbConfig/database';
-import User from '@/(backend)/models/user';
+import { connectDB } from '@/dbConfig/database';
+import User from '@/models/user';
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import { Profile, Session, SessionStrategy } from 'next-auth';

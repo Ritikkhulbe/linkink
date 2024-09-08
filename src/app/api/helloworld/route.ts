@@ -1,4 +1,4 @@
-import { connectDB } from "@/(backend)/dbConfig/database";
+import { connectDB } from "@/dbConfig/database";
 import { NextResponse } from "next/server";
 
 connectDB();

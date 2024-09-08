@@ -1,7 +1,7 @@
-import { connectDB } from "@/(backend)/dbConfig/database";
-import QR from "@/(backend)/models/qr";
+import { connectDB } from "@/dbConfig/database";
+import QR from "@/models/qr";
 import { NextResponse } from "next/server";
-import RedisClient from "@/(backend)/dbConfig/redisConfig";
+import RedisClient from "@/dbConfig/redisConfig";
 
 
 export async function POST(request: Request) {

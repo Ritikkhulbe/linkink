@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/(backend)/dbConfig/database";
-import Product from "@/(backend)/models/product";
+import { connectDB } from "@/dbConfig/database";
+import Product from "@/models/product";
 
 connectDB()
 
