@@ -1,12 +1,11 @@
 "use client";
 
-import useLink from "@/hooks/useLink";
-import { redirect, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
 
-const page = () => {
+const Page = () => {
     const params = useParams();
     const [link, setLink] = useState("")
 
@@ -25,7 +24,7 @@ const page = () => {
     
       fetchLink();
 
-    }, []);
+    }, [params.id, setLink]);
 
 
     useEffect(() => {
@@ -44,4 +43,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

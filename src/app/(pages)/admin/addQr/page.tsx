@@ -1,7 +1,7 @@
 import { OrderForm } from '@/components/order-form'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <div className=' flex items-center justify-center w-[40vw]'>
         <OrderForm />
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
