@@ -1,5 +1,3 @@
-export const maxDuration = 60;
-
 import { connectDB } from '@/dbConfig/database';
 import User from '@/models/user';
 import NextAuth from "next-auth/next";
@@ -13,15 +11,6 @@ interface ExtendedProfile extends Profile {
   given_name?: string;
   picture?: string;
   role?: string;
-};
-
-
-interface ExtendedSession extends Session {
-  user: {
-    id: string;
-    email: string;
-    role: string;
-  } & Session['user'];
 }
 
 const authOptions = {
@@ -58,25 +47,24 @@ const authOptions = {
         return false;
       }
     },
-    async jwt({ token, user, profile   }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
-      // Add name and image to the JWT when user signs in
+    async jwt({ token, user, profile }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
+      // Add name, image, and role to the JWT when user signs in
       if (user?.email) {
         token.role = adminEmails.includes(user.email) ? 'admin' : 'user';
       }
-      if (user && profile) {
+      if (profile) {
         token.name = profile.name;
         token.picture = profile.picture;
       }
       return token;
     },
-    async session({ session, token }: { session: ExtendedSession, token: JWT }) {
-      // Ensure session.user exists before accessing its properties
+    async session({ session, token }: { session: Session, token: JWT }) {
+      // Extend session user with additional properties from the JWT
       if (session.user) {
         session.user.name = token.name as string;
         session.user.image = token.picture as string;
-        session.user.role = token.role as string;
       }
-      return session as ExtendedSession;
+      return session;
     }
   },
   session: {
@@ -86,5 +74,4 @@ const authOptions = {
 
 const GoogleAuthHandler = NextAuth(authOptions);
 
-
-export { GoogleAuthHandler as GET, GoogleAuthHandler as POST}
+export { GoogleAuthHandler as GET, GoogleAuthHandler as POST };
