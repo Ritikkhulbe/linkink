@@ -3,7 +3,7 @@ import { withAuth } from "next-auth/middleware"
 
 export default withAuth({
     callbacks: {
-        authorized: ({req, token}) => {
+        authorized: async ({req, token}) => {
             if(req.nextUrl.pathname === '/admin/:path*' || req.nextUrl.pathname === '/qr/generate/:id*'){
                 return token?.role === 'admin'
             }

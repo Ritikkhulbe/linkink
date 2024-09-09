@@ -7,6 +7,8 @@ import GoogleProvider from "next-auth/providers/google";
 import { Profile, Session, SessionStrategy } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
+const adminEmails = ["ritikkhulbe22@gmail.com", "ritikkhulbe@linkink.in"];
+
 interface ExtendedProfile extends Profile {
   given_name?: string;
   picture?: string;
@@ -38,12 +40,13 @@ const authOptions = {
           const userExist = await User.findOne({ email: profile.email }).lean();
 
           if (!userExist) {
-            const username = profile.given_name || profile.name || profile.email.split('@')[0];
+            const username = profile.name || profile.given_name || profile.email.split('@')[0];
+            const role = adminEmails.includes(profile.email) ? 'admin' : 'user';
             const newUser = new User({
               email: profile.email,
               name: username,
               image: profile.picture,
-              role: "user",
+              role: role,
             });
 
             await newUser.save();
@@ -55,21 +58,25 @@ const authOptions = {
         return false;
       }
     },
-    async jwt({ token, user, profile }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
+    async jwt({ token, user, profile   }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
       // Add name and image to the JWT when user signs in
+      if (user?.email) {
+        token.role = adminEmails.includes(user.email) ? 'admin' : 'user';
+      }
       if (user && profile) {
         token.name = profile.name;
         token.picture = profile.picture;
       }
       return token;
     },
-    async session({ session, token }: { session: Session, token: JWT }) {
+    async session({ session, token }: { session: ExtendedSession, token: JWT }) {
       // Ensure session.user exists before accessing its properties
       if (session.user) {
         session.user.name = token.name as string;
         session.user.image = token.picture as string;
+        session.user.role = token.role as string;
       }
-      return session;
+      return session as ExtendedSession;
     }
   },
   session: {
