@@ -4,7 +4,7 @@ export interface product{
     productNumber: Number,
     name: string,
     sizes: string[],
-    images: string[],
+    images: string,
     colours: string[],
     productLink: string,
 }
@@ -25,7 +25,7 @@ const ProductSchema = new Schema<product>({
         default: [ "S", "M", "L", "XL", "XXL" ]
     },
     images: {
-        type: [String],
+        type: String,
         required: [true, "Please provide at least one image"],
     },
     colours: {

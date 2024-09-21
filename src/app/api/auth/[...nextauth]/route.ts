@@ -26,7 +26,7 @@ const authOptions = {
         await connectDB();
         
         if (profile?.email) {
-          const userExist = await User.findOne({ email: profile.email }).lean();
+          const userExist = await User.findOne({ email: profile.email });
 
           if (!userExist) {
             const username = profile.name || profile.given_name || profile.email.split('@')[0];
@@ -48,27 +48,36 @@ const authOptions = {
       }
     },
     async jwt({ token, user, profile }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
-      // Add name, image, and role to the JWT when user signs in
-      if (user?.email) {
+      console.log("JWT callback - profile:", profile);
+      console.log("JWT callback - token before update:", token);
+    
+      if (profile?.email) {
         token.role = adminEmails.includes(user.email) ? 'admin' : 'user';
       }
       if (profile) {
         token.name = profile.name;
         token.picture = profile.picture;
       }
+    
+      console.log("JWT callback - token after update:", token);
       return token;
     },
     async session({ session, token }: { session: Session, token: JWT }) {
+      console.log("Session callback - session:", session);
       // Extend session user with additional properties from the JWT
       if (session.user) {
         session.user.name = token.name as string;
         session.user.image = token.picture as string;
       }
+
+      console.log("Session callback - session after update:", session);
+      
       return session;
     }
   },
   session: {
     strategy: "jwt" as SessionStrategy,
+    secureCookie: process.env.NODE_ENV === "production",
   },
 }
 

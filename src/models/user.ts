@@ -28,8 +28,9 @@ const UserSchema = new Schema<user>({
         type: String,
     },
     productList: {
-        type: [{type: Schema.Types.ObjectId, ref: "qrs", unique: true}],
+        type: [{type: Schema.Types.ObjectId, ref: "qrs"}],
         required: false,
+        default: [],
     },
     role: {
         type: String,

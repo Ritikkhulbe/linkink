@@ -1,7 +1,7 @@
 import { connectDB } from '@/dbConfig/database';
 import QR from '@/models/qr';
 import  { NextResponse } from 'next/server';
-
+import RedisClient from "@/dbConfig/redisConfig";
 
 connectDB();
 
@@ -15,10 +15,16 @@ export async function PUT(request: Request) {
             {
                 link:body.link,
                 isSet: true
+            },
+            {
+                new: true,
             }
         )
 
         if(!ToUpdate) throw new Error("QR not found");
+
+        const qrlinkKey = `qrlink:${body.qrlink}`;
+        await RedisClient.set(qrlinkKey, body.link, "EX", 60 * 60 * 24 * 30);
 
         console.log(ToUpdate);
 

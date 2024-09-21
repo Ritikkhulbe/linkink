@@ -21,6 +21,9 @@ export function Navbar() {
 
   const { data: session}  = useSession();
 
+  console.log(session);
+  console.log(session?.user);
+
  return (
 
     <header className="flex h-16 w-full items-center justify-between bg-background px-4 md:px-6">
