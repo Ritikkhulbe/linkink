@@ -28,7 +28,8 @@ const Page = () => {
 
 
     useEffect(() => {
-      if(link!==""){
+      if(link){
+        console.log("link is ",link);
         const formattedLink = link.startsWith('http') ? link : `http://${link}`;
         window.location.assign(formattedLink);
       }
@@ -38,7 +39,11 @@ const Page = () => {
 
   return (
     <>
-    {params.id}<br />
+    <div className="flex justify-center items-center h-[70vh] flex-col">
+        <div className="loader"></div>
+        <br />
+        <div>Loading...</div>
+    </div>
     </>
   )
 }

@@ -47,9 +47,6 @@ export function Navbar() {
           <SheetContent side="right" className="md:hidden">
             <div className="grid gap-4 p-4">
               <Link href="#" className="font-medium hover:underline hover:underline-offset-4" prefetch={false}>
-                Home
-              </Link>
-              <Link href="#" className="font-medium hover:underline hover:underline-offset-4" prefetch={false}>
                 Link
               </Link>
               <Link href="#" className="font-medium hover:underline hover:underline-offset-4" prefetch={false}>
@@ -66,13 +63,6 @@ export function Navbar() {
         </Sheet>
       </div>
       <nav className="hidden items-center justify-center gap-6 text-sm font-medium md:flex pl-[7vw]">
-        <Link
-          href="#"
-          className="relative before:absolute before:-bottom-1 before:h-[2px] before:w-0 before:bg-primary before:transition-all hover:before:w-full"
-          prefetch={false}
-        >
-          Home
-        </Link>
         <Link
           href="#"
           className="relative before:absolute before:-bottom-1 before:h-[2px] before:w-0 before:bg-primary before:transition-all hover:before:w-full"
