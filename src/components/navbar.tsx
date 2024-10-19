@@ -27,7 +27,7 @@ export function Navbar() {
  return (
 
     <header className="flex h-16 w-full items-center justify-between bg-background px-4 md:px-6">
-      <Link href="/" className="flex items-center gap-2" prefetch={false}>
+      <Link href="/" className="flex items-center gap-2 w-[20vw]" prefetch={false}>
         <MountainIcon className="h-6 w-6" />
         <span className="text-lg font-semibold">Linkink</span>
       </Link>
@@ -62,7 +62,14 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
       </div>
-      <nav className="hidden items-center justify-center gap-6 text-sm font-medium md:flex pl-[7vw]">
+      <nav className="hidden items-center justify-center gap-6 text-sm font-medium md:flex ">
+      <Link
+          href="#"
+          className="relative before:absolute before:-bottom-1 before:h-[2px] before:w-0 before:bg-primary before:transition-all hover:before:w-full"
+          prefetch={false}
+        >
+          Shop
+        </Link>
         <Link
           href="#"
           className="relative before:absolute before:-bottom-1 before:h-[2px] before:w-0 before:bg-primary before:transition-all hover:before:w-full"
@@ -85,8 +92,7 @@ export function Navbar() {
           Contact
         </Link>
       </nav>
-      <div className="hidden gap-2 md:flex">
-        <Button variant="outline" onClick={()=>console.log("Hi there")}>Shop Now</Button>
+      <div className="hidden gap-2 md:flex w-[20vw] flex-row-reverse">
         {session?.user ? (
           <><Button variant="outline" onClick={()=>signOut()}>{session?.user?.name}</Button></>
         ): (

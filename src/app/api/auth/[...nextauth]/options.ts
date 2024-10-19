@@ -48,8 +48,6 @@ const authOptions = {
         }
       },
       async jwt({ token, user, profile }: { token: JWT, user?: any, profile?: ExtendedProfile }) {
-        console.log("JWT callback - profile:", profile);
-        console.log("JWT callback - token before update:", token);
       
         if (profile?.email) {
           token.role = adminEmails.includes(user.email) ? 'admin' : 'user';
@@ -59,18 +57,16 @@ const authOptions = {
           token.picture = profile.picture;
         }
       
-        console.log("JWT callback - token after update:", token);
         return token;
       },
       async session({ session, token }: { session: Session, token: JWT }) {
-        console.log("Session callback - session:", session);
+
         // Extend session user with additional properties from the JWT
         if (session.user) {
           session.user.name = token.name as string;
           session.user.image = token.picture as string;
         }
   
-        console.log("Session callback - session after update:", session);
         
         return session;
       }

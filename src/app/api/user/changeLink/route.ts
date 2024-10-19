@@ -8,6 +8,7 @@ connectDB();
 export async function PUT(request: Request) {
 
     try {
+        
         const body = await request.json();
         console.log(body);
         
@@ -34,6 +35,7 @@ export async function PUT(request: Request) {
 
         console.log(err);
         return NextResponse.json({ success: false });
+
     }
     
 }
